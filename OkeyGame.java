@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class OkeyGame {
 
@@ -53,14 +54,25 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        return null;
+        Tile topTile = tiles[0];
+        for(int i = 1; i < tiles.length; i++){
+            tiles[i - 1] = tiles[i];
+        }
+        tiles[tiles.length - 1] = null;
+        return topTile.toString();
     }
 
     /*
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
-
+        Random rnd = new Random();
+        for(int i = tiles.length - 1; i > 0; i--){
+            int random = rnd.nextInt(i + 1);
+            Tile temp = tiles[i];
+            tiles[i] = tiles[random];
+            tiles[random] = temp;
+        }
     }
 
     /*
