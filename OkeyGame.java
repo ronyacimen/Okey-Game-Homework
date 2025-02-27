@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class OkeyGame {
 
     Player[] players;
@@ -139,8 +141,8 @@ public class OkeyGame {
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-      Player player = players[currentPlayerIndex];
-       lastDiscardedTile = player.getAndRemoveTile(tileIndex); 
+        Player player = players[currentPlayerIndex];
+        lastDiscardedTile = player.getAndRemoveTile(tileIndex); 
     }
 
     public void displayDiscardInformation() {

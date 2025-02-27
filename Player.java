@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player {
     String playerName;
     Tile[] playerTiles;
@@ -5,15 +7,38 @@ public class Player {
 
     public Player(String name) {
         setName(name);
-        playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
-        numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
+        this.playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
+        this.numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
     /*
      * TODO: removes and returns the tile in given index
      */
     public Tile getAndRemoveTile(int index) {
-        return null;
+        Tile tile;
+        
+        if(this.playerTiles[index] != null){
+            tile = this.playerTiles[index];
+            this.playerTiles[index] = null;
+            
+            Tile[] newTiles = new Tile[playerTiles.length - 1];
+
+            for(int i = 0; i < playerTiles.length; i++){
+                if(this.playerTiles[i] == null){
+                    i++;
+                }
+                newTiles[i] = this.playerTiles[i];
+            }
+
+            this.playerTiles = newTiles;
+
+            this.numberOfTiles--;
+        }
+        else{
+            tile = null;
+        }
+        
+        return tile;
     }
 
     /*
@@ -22,7 +47,22 @@ public class Player {
      * make sure playerTiles are not more than 15 at any time
      */
     public void addTile(Tile t) {
+        if(this.numberOfTiles > 14){
+            System.out.println("You can not have more than 15 tiles in your hand.");
+            return;
+        }
 
+        Tile[] newTiles = new Tile[this.numberOfTiles + 1];
+
+        for(int i = 0; i < this.numberOfTiles; i++){
+            newTiles[i] = this.playerTiles[i];
+        }
+
+        newTiles[newTiles.length - 1] = t;
+
+        this.playerTiles = newTiles;
+
+        this.numberOfTiles++;
     }
 
     /*
@@ -32,7 +72,40 @@ public class Player {
      * @return
      */
     public boolean isWinningHand() {
-        return false;
+        int chainCount = 0;
+
+        ArrayList<Tile> newTiles = new ArrayList<>();
+
+        for(int i = 0; i < playerTiles.length; i++){
+            newTiles.add(playerTiles[i]);
+        }
+
+        while (!newTiles.isEmpty()) { 
+            ArrayList<Tile> chainTiles = new ArrayList<>();
+            Tile firstTile = newTiles.get(0); 
+            chainTiles.add(firstTile);
+    
+            for (int i = 1; i < newTiles.size(); i++) {
+                Tile tile = newTiles.get(i);
+                if (firstTile.canFormChainWith(tile)) {
+                    chainTiles.add(tile);
+                    if (chainTiles.size() == 4) {
+                        break; 
+                    }
+                }
+            }
+    
+         
+            if (chainTiles.size() == 4) {
+                newTiles.removeAll(chainTiles); 
+                chainCount++;
+            } else {
+                break; 
+            }
+        }
+
+        return chainCount >= 3;
+        
     }
 
     public int findPositionOfTile(Tile t) {
