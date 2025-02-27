@@ -105,7 +105,32 @@ public class OkeyGame {
      * the single tiles and tiles that contribute to the smallest chains.
      */
     public void discardTileForComputer() {
-
+        Player player = players[currentPlayerIndex];
+        Tile[] tiles =player.getTiles();
+        ArrayList<Integer> count = new ArrayList<>();
+        Tile current = null;
+        Tile next = null;
+        for(int i=0; i< tiles.length; i++){
+            current = tiles[i];
+            count.add(1);
+            for(int j=i+1; j<tiles.length; j++){
+                next = tiles[j];
+                if(current.getValue() == next.getValue()){
+                    count.set(i,count.get(i)+1);
+                }
+                if(current.compareTo(next)==0){
+                    System.out.println(current.value + current.color);
+                    player.getAndRemoveTile(i);
+                    return;
+                }
+            }
+        }
+        for(int s=0; s<tiles.length; s++){
+            if(count.get(s) ==1){
+                player.getAndRemoveTile(s);
+                return;
+            }
+        }
     }
 
     /*
@@ -114,7 +139,8 @@ public class OkeyGame {
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-
+      Player player = players[currentPlayerIndex];
+       lastDiscardedTile = player.getAndRemoveTile(tileIndex); 
     }
 
     public void displayDiscardInformation() {
