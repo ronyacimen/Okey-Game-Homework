@@ -142,7 +142,6 @@ public class OkeyGame {
      * the single tiles and tiles that contribute to the smallest chains.
      */
     public void discardTileForComputer() {
-   public void discardTileForComputer() {
     Player player = players[currentPlayerIndex];
     Tile[] tiles = player.getTiles();
 
