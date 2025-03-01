@@ -22,7 +22,7 @@ public class Player {
             this.playerTiles[index] = null;
             Tile[] newTiles = new Tile[playerTiles.length - 1];
 
-            for(int i = 0; i < playerTiles.length; i++){
+            for(int i = 0; i < playerTiles.length - 1 ; i++){
                 if(this.playerTiles[i] == null){
                     i++;
                 }
