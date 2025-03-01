@@ -142,59 +142,41 @@ public class OkeyGame {
      * the single tiles and tiles that contribute to the smallest chains.
      */
     public void discardTileForComputer() {
-    Player player = players[currentPlayerIndex];
-    Tile[] tiles = player.getTiles();
-
-    if (tiles == null || tiles.length == 0) {
-        System.out.println(player.getName() + " has no tiles to discard.");
-        return;
-    }
-
-    int[] count = new int[tiles.length]; 
-    Tile discardTile = null;
-    int discardIndex = -1;
-
-
-    for (int i = 0; i < tiles.length; i++) {
-        if (tiles[i] == null) continue;
-
-        for (int j = 0; j < tiles.length; j++) {
-            if (i != j && tiles[i] != null && tiles[j] != null && tiles[i].getValue() == tiles[j].getValue()) {
-                count[i]++;
-            }
+        Player player = players[currentPlayerIndex];
+        Tile[] tiles = player.getTiles();
+    
+        if (tiles == null || tiles.length == 0) {
+            System.out.println(player.getName() + " has no tiles to discard.");
+            return;
         }
-    }
-
-    for (int i = 0; i < tiles.length; i++) {
-        if (tiles[i] != null && count[i] == 0) {
-            discardTile = tiles[i];
-            discardIndex = i;
-            break;
-        }
-    }
-
-    if (discardTile == null) {
+    
+        Tile discardTile = null;
+        int discardIndex = -1;
+    
+        int minCount = Integer.MAX_VALUE;
         for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i] != null) {
+            if (tiles[i] == null) continue;
+    
+            int count = 0;
+            for (int j = 0; j < tiles.length; j++) {
+                if (tiles[j] != null && tiles[j].getValue() == tiles[i].getValue()) {
+                    count++;
+                }
+            }
+    
+            if (count < minCount) {
+                minCount = count;
                 discardTile = tiles[i];
                 discardIndex = i;
-                break;
             }
         }
-    }
-
-    if (discardTile != null && discardIndex != -1) {
-        System.out.println(player.getName() + " discarded: " + discardTile);
-        lastDiscardedTile = player.getAndRemoveTile(discardIndex);
-    }
-
-        for(int s=0; s<tiles.length; s++){
-            if(count[s]==1){
-              lastDiscardedTile=  player.getAndRemoveTile(s);
-                return;
-            }
+    
+        if (discardTile != null && discardIndex != -1) {
+            System.out.println(player.getName() + " discarded: " + discardTile);
+            lastDiscardedTile = player.getAndRemoveTile(discardIndex);
         }
     }
+    
 
     /*
      * TODO: discards the current player's tile at given index
