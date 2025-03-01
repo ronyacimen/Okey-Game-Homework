@@ -143,39 +143,32 @@ public class OkeyGame {
      */
     public void discardTileForComputer() {
         Player player = players[currentPlayerIndex];
-        Tile[] tiles = player.getTiles();
-    
-        if (tiles == null || tiles.length == 0) {
-            System.out.println(player.getName() + " has no tiles to discard.");
-            return;
-        }
-    
-        Tile discardTile = null;
-        int discardIndex = -1;
-    
-        int minCount = Integer.MAX_VALUE;
-        for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i] == null) continue;
-    
-            int count = 0;
-            for (int j = 0; j < tiles.length; j++) {
-                if (tiles[j] != null && tiles[j].getValue() == tiles[i].getValue()) {
-                    count++;
+        Tile[] tiles =player.getTiles();
+        ArrayList<Integer> count = new ArrayList<>();
+        Tile current = null;
+        Tile next = null;
+        for(int i=0; i< tiles.length; i++){
+            current = tiles[i];
+            count.add(1);
+            for(int j=i+1; j<tiles.length; j++){
+                next = tiles[j];
+                if(current.getValue() == next.getValue()){
+                    count.set(i,count.get(i)+1);
+                }
+                if(current.compareTo(next)==0){
+                    System.out.println(current.value + current.color);
+                    lastDiscardedTile= player.getAndRemoveTile(i);
+                    return;
                 }
             }
-    
-            if (count < minCount) {
-                minCount = count;
-                discardTile = tiles[i];
-                discardIndex = i;
+        }
+        for(int s=0; s<tiles.length; s++){
+            if(count.get(s) ==1){
+                player.getAndRemoveTile(s);
+                return;
             }
         }
-    
-        if (discardTile != null && discardIndex != -1) {
-            System.out.println(player.getName() + " discarded: " + discardTile);
-            lastDiscardedTile = player.getAndRemoveTile(discardIndex);
-        }
-    }
+    } 
     
 
     /*
