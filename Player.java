@@ -83,7 +83,7 @@ public class Player {
     
             for (int i = 1; i < newTiles.size(); i++) {
                 Tile tile = newTiles.get(i);
-                if (firstTile.canFormChainWith(tile)) {
+                if (tile != null && firstTile.canFormChainWith(tile)) {
                     chainTiles.add(tile);
                     if (chainTiles.size() == 4) {
                         break; 
