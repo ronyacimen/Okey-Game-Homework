@@ -154,7 +154,7 @@ public class OkeyGame {
     Tile discardTile = null;
     int discardIndex = -1;
 
-    // Önce tekrar eden taşları say
+
     for (int i = 0; i < tiles.length; i++) {
         if (tiles[i] == null) continue;
 
@@ -187,9 +187,9 @@ public class OkeyGame {
         System.out.println(player.getName() + " discarded: " + discardTile);
         lastDiscardedTile = player.getAndRemoveTile(discardIndex);
     }
-}
+
         for(int s=0; s<tiles.length; s++){
-            if(count.get(s) ==1){
+            if(count[s]==1){
               lastDiscardedTile=  player.getAndRemoveTile(s);
                 return;
             }
