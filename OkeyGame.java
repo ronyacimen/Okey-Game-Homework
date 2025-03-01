@@ -122,7 +122,7 @@ public class OkeyGame {
 
         if (lastDiscardedTile != null) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
-                if( currentPlayer.getTiles()[i] != null && lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false ){
+                if( lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false ){
                     getLastDiscardedTile();
                     pickedFromDiscarded = true;
                     System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
