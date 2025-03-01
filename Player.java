@@ -20,7 +20,6 @@ public class Player {
         if(this.playerTiles[index] != null){
             tile = this.playerTiles[index];
             this.playerTiles[index] = null;
-            
             Tile[] newTiles = new Tile[playerTiles.length - 1];
 
             for(int i = 0; i < playerTiles.length; i++){
@@ -31,7 +30,6 @@ public class Player {
             }
 
             this.playerTiles = newTiles;
-
             this.numberOfTiles--;
         }
         else{
@@ -59,9 +57,7 @@ public class Player {
         }
 
         newTiles[newTiles.length - 1] = t;
-
         this.playerTiles = newTiles;
-
         this.numberOfTiles++;
     }
 
@@ -95,7 +91,6 @@ public class Player {
                 }
             }
     
-         
             if (chainTiles.size() == 4) {
                 newTiles.removeAll(chainTiles); 
                 chainCount++;
@@ -105,7 +100,6 @@ public class Player {
         }
 
         return chainCount >= 3;
-        
     }
 
     public int findPositionOfTile(Tile t) {
@@ -120,7 +114,7 @@ public class Player {
 
     public void displayTiles() {
         System.out.println(playerName + "'s Tiles:");
-        for (int i = 0; i < numberOfTiles; i++) {
+        for (int i = 0; i < numberOfTiles && playerTiles[i] != null; i++) {
             System.out.print(playerTiles[i].toString() + " ");
         }
         System.out.println();
