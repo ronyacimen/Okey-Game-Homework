@@ -12,6 +12,9 @@ public class OkeyGame {
 
     public OkeyGame() {
         players = new Player[4];
+        for(int i = 0; i < players.length; i++){
+            players[i] = new Player("");
+        }
     }
 
     public void createTiles() {
@@ -71,10 +74,12 @@ public class OkeyGame {
      */
     public String getTopTile() {
         Tile topTile = tiles[0];
-        for(int i = 1; i < tiles.length; i++){
-            tiles[i - 1] = tiles[i];
+        if(topTile != null){
+            for(int i = 1; i < tiles.length; i++){
+                tiles[i - 1] = tiles[i];
+            }
+            tiles[tiles.length - 1] = null;
         }
-        tiles[tiles.length - 1] = null;
         return topTile.toString();
     }
 
