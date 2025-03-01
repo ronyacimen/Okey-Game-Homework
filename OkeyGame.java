@@ -157,14 +157,14 @@ public class OkeyGame {
                 }
                 if(current.compareTo(next)==0){
                     System.out.println(current.value + current.color);
-                    player.getAndRemoveTile(i);
+                    lastDiscardedTile= player.getAndRemoveTile(i);
                     return;
                 }
             }
         }
         for(int s=0; s<tiles.length; s++){
             if(count.get(s) ==1){
-                player.getAndRemoveTile(s);
+              lastDiscardedTile=  player.getAndRemoveTile(s);
                 return;
             }
         }
