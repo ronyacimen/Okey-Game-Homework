@@ -20,17 +20,18 @@ public class Player {
         if(this.playerTiles[index] != null){
             tile = this.playerTiles[index];
             this.playerTiles[index] = null;
-            Tile[] newTiles = new Tile[playerTiles.length - 1];
-
-            for(int i = 0; i < playerTiles.length - 1 ; i++){
+            Tile[] newTiles = new Tile[playerTiles.length - 1]; // t0 t1 t2 t3 --> t0 null t2 t3 --> t0 t2 t3
+            int j = 0;
+            for(int i = 0; i < playerTiles.length - 1; i++){
                 if(this.playerTiles[i] == null){
-                    i++;
+                    j++;
                 }
-                newTiles[i] = this.playerTiles[i];
+                newTiles[i] = this.playerTiles[i + j];
             }
 
-            this.playerTiles = newTiles;
             this.numberOfTiles--;
+            this.playerTiles = newTiles;
+            
         }
         else{
             tile = null;
