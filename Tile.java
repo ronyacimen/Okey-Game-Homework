@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Tile {
     
     int value;
@@ -63,6 +64,18 @@ public class Tile {
         }
 
     }
+    public boolean canFormChainWith(Tile t, ArrayList<Tile> tiles) {
+        for(Tile tile : tiles){
+            if(t.getColor() == tile.getColor() && t.getValue() == tile.getValue()){
+                return false;
+            }
+        }
+        if(t.getColor() != color && t.getValue() == value) {
+            return true;   
+        }
+        return false;
+}
+
 
     public String toString() {
         return "" + value + color;
@@ -75,5 +88,4 @@ public class Tile {
     public char getColor() {
         return color;
     }
-    
 }

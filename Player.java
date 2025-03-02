@@ -63,7 +63,7 @@ public class Player {
     }
 
     public void addTile(Tile tile) {
-        if (this.numberOfTiles > 15) {
+        if (this.numberOfTiles > 14) {
             System.out.println("You can not have more than 15 tiles in your hand.");
             return;
         }
@@ -90,10 +90,12 @@ public class Player {
         if (isadded == false ) {
             tiles.add(tile);
         }
+        numberOfTiles++;
+        this.playerTiles = new Tile[numberOfTiles];
         for (int i = 0; i < tiles.size(); i++) {
             playerTiles[i] = tiles.get(i);
         }
-        numberOfTiles++;
+        
     }
 
     /*
@@ -104,6 +106,9 @@ public class Player {
      */
     public boolean isWinningHand() {
         int chainCount = 0;
+        int j = 0;
+        
+        ArrayList<Integer> chainNumbers = new ArrayList<>(); 
 
         ArrayList<Tile> newTiles = new ArrayList<>();
 
@@ -113,12 +118,21 @@ public class Player {
 
         while (!newTiles.isEmpty()) { 
             ArrayList<Tile> chainTiles = new ArrayList<>();
-            Tile firstTile = newTiles.get(0); 
+            Tile firstTile = newTiles.get(j);
+            
+            if(chainNumbers.size() != 0){
+                while(this.hasSameValue(chainNumbers, firstTile)){
+                    j++;
+                    firstTile = newTiles.get(j);
+                }
+            }
+            
+            
             chainTiles.add(firstTile);
     
             for (int i = 1; i < newTiles.size(); i++) {
                 Tile tile = newTiles.get(i);
-                if (tile != null && firstTile.canFormChainWith(tile)) {
+                if (tile != null && firstTile.canFormChainWith(tile, chainTiles)) {
                     chainTiles.add(tile);
                     if (chainTiles.size() == 4) {
                         break; 
@@ -127,7 +141,8 @@ public class Player {
             }
     
             if (chainTiles.size() == 4) {
-                newTiles.removeAll(chainTiles); 
+                newTiles.removeAll(chainTiles);
+                chainNumbers.add(chainTiles.get(0).getValue());
                 chainCount++;
             } else {
                 break; 
@@ -165,5 +180,14 @@ public class Player {
 
     public String getName() {
         return playerName;
+    }
+
+    public boolean hasSameValue(ArrayList<Integer> chainNumbers, Tile tile){
+        for(int val : chainNumbers){
+            if(tile.getValue() == val){
+                return true;
+            }
+        }
+        return false;
     }
 }
