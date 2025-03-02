@@ -87,5 +87,5 @@ public class Tile {
 
     public char getColor() {
         return color;
-    }
+    }   
 }

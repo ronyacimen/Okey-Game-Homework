@@ -74,6 +74,9 @@ public class OkeyGame {
      */
     public String getTopTile() {
         Tile topTile = tiles[0];
+        Player curPlayer = players[currentPlayerIndex];
+        
+        curPlayer.addTile(topTile);
         if(topTile != null){
             for(int i = 1; i < tiles.length; i++){
                 tiles[i - 1] = tiles[i];
@@ -122,7 +125,7 @@ public class OkeyGame {
 
         if (lastDiscardedTile != null) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
-                if( lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false ){
+                if( lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false){
                     getLastDiscardedTile();
                     pickedFromDiscarded = true;
                     System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
@@ -143,13 +146,11 @@ public class OkeyGame {
      */
     public void discardTileForComputer() {
         Player player = players[currentPlayerIndex];
-        Tile[] tiles =player.getTiles();
+        Tile[] tiles = player.getTiles();
         ArrayList<Integer> count = new ArrayList<>();
         Tile current = null;
         Tile next = null;
-        if(tiles.length!=0){
-            
-        for(int i=0; i< tiles.length; i++){
+        for(int i=0; i< tiles.length - 1; i++){
             current = tiles[i];
             count.add(1);
             for(int j=i+1; j<tiles.length; j++){
@@ -170,7 +171,6 @@ public class OkeyGame {
                 return;
             }
         }
-    }
     } 
     
 
@@ -209,7 +209,7 @@ public class OkeyGame {
     public void setPlayerName(int index, String name) {
         if(index >= 0 && index <= 3) {
             players[index] = new Player(name);
+    
         }
     }
-
 }

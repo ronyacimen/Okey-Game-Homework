@@ -45,22 +45,6 @@ public class Player {
      * should also update numberOfTiles accordingly.
      * make sure playerTiles are not more than 15 at any time
      */
-    public void addTilee(Tile t) {
-        if(this.numberOfTiles > 14){
-            System.out.println("You can not have more than 15 tiles in your hand.");
-            return;
-        }
-
-        Tile[] newTiles = new Tile[this.numberOfTiles + 1];
-
-        for(int i = 0; i < this.numberOfTiles; i++){
-            newTiles[i] = this.playerTiles[i];
-        }
-
-        newTiles[newTiles.length - 1] = t;
-        this.playerTiles = newTiles;
-        this.numberOfTiles++;
-    }
 
     public void addTile(Tile tile) {
         if (this.numberOfTiles > 14) {
@@ -120,7 +104,7 @@ public class Player {
             ArrayList<Tile> chainTiles = new ArrayList<>();
             Tile firstTile = newTiles.get(j);
             
-            if(chainNumbers.size() != 0){
+            if(chainNumbers.isEmpty()){
                 while(this.hasSameValue(chainNumbers, firstTile)){
                     j++;
                     firstTile = newTiles.get(j);
