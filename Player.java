@@ -63,7 +63,7 @@ public class Player {
     }
 
     public void addTile(Tile tile) {
-        if (this.numberOfTiles > 14) {
+        if (this.numberOfTiles > 15) {
             System.out.println("You can not have more than 15 tiles in your hand.");
             return;
         }
