@@ -125,10 +125,15 @@ public class OkeyGame {
     public void pickTileForComputer() {
         Player currentPlayer = players[currentPlayerIndex];
         boolean pickedFromDiscarded = false;
+        ArrayList<Tile> tiles = new ArrayList<>();
+
+        for (int i = 0; i < currentPlayer.numberOfTiles; i++) {
+            tiles.add(currentPlayer.getTiles()[i]);
+        }
 
         if (lastDiscardedTile != null) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
-                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false){
+                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i], tiles) && pickedFromDiscarded == false){
                     getLastDiscardedTile();
                     pickedFromDiscarded = true;
                     System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
