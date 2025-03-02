@@ -79,9 +79,11 @@ public class Player {
                     tiles.add(i, tile);
                     isadded = true;
                 }
-                else if (tile.getValue() == tiles.get(i).getValue() && tile.colorNameToInt() < tiles.get(i).colorNameToInt()) {
-                    tiles.add(i, tile);
-                    isadded = true;
+                else if (tile.getValue() == tiles.get(i).getValue()){
+                    if(tile.colorNameToInt() < tiles.get(i).colorNameToInt()){
+                        tiles.add(i, tile);
+                        isadded = true;
+                    }
                 }
             }
         }
