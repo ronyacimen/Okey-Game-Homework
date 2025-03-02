@@ -5,6 +5,7 @@ public class OkeyGame {
 
     Player[] players;
     Tile[] tiles;
+    boolean didrefill = false;
 
     Tile lastDiscardedTile;
 
@@ -74,9 +75,6 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        if(tiles[0] == null){
-            System.out.println(ApplicationMain.discardedTiles.toString());
-        }
         if(tiles[0] != null){
             Tile topTile = tiles[0];
             Player curPlayer = players[currentPlayerIndex];
@@ -93,6 +91,7 @@ public class OkeyGame {
         else{
             if(!ApplicationMain.discardedTiles.isEmpty()){
                 System.out.println("All of the tiles that are in the stack are picked. Tiles are being refilled.");
+                didrefill = true;
                 for(int i = 0; i < ApplicationMain.discardedTiles.size(); i++){
                     tiles[i] = ApplicationMain.discardedTiles.get(i);
                 }
@@ -160,6 +159,10 @@ public class OkeyGame {
         if( pickedatile == false ){
             getTopTile();
             System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
+            if(didrefill == true){
+                ApplicationMain.discardedTiles.add(0, lastDiscardedTile);
+                ApplicationMain.discardedTiles.remove(112);
+            }
         }
     }
 
