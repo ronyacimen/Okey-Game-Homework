@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ApplicationMain {
-
+    public static ArrayList<Tile> discardedTiles = new ArrayList<>();
+    public static boolean didEnd = false;
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         OkeyGame game = new OkeyGame();
@@ -40,7 +43,9 @@ public class ApplicationMain {
         int playerChoice = -1;
 
         while(gameContinues) {
-            
+            if(didEnd){
+                break;
+            }
             int currentPlayer = game.getCurrentPlayerIndex();
             System.out.println(game.getCurrentPlayerName() + "'s turn.");
             
