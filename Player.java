@@ -59,14 +59,16 @@ public class Player {
         boolean isadded = false;
         for (int i = 0; i < tiles.size(); i++) {
             if(isadded == false){
-                if (tile.getValue() < tiles.get(i).getValue()) {
-                    tiles.add(i, tile);
-                    isadded = true;
-                }
-                else if (tile.getValue() == tiles.get(i).getValue()){
-                    if(tile.colorNameToInt() < tiles.get(i).colorNameToInt()){
+                if(tile != null){
+                    if (tile.getValue() < tiles.get(i).getValue()) {
                         tiles.add(i, tile);
                         isadded = true;
+                    }
+                    else if (tile.getValue() == tiles.get(i).getValue()){
+                        if(tile.colorNameToInt() < tiles.get(i).colorNameToInt()){
+                            tiles.add(i, tile);
+                            isadded = true;
+                        }
                     }
                 }
             }

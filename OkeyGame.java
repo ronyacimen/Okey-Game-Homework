@@ -73,17 +73,20 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        Tile topTile = tiles[0];
-        Player curPlayer = players[currentPlayerIndex];
-        
-        curPlayer.addTile(topTile);
-        if(topTile != null){
-            for(int i = 1; i < tiles.length; i++){
-                tiles[i - 1] = tiles[i];
+        if(tiles[0] != null){
+            Tile topTile = tiles[0];
+            Player curPlayer = players[currentPlayerIndex];
+            
+            curPlayer.addTile(topTile);
+            if(topTile != null){
+                for(int i = 1; i < tiles.length; i++){
+                    tiles[i - 1] = tiles[i];
+                }
+                tiles[tiles.length - 1] = null;
+                return topTile.toString();
             }
-            tiles[tiles.length - 1] = null;
         }
-        return topTile.toString();
+        return null;
     }
 
     /*
@@ -125,7 +128,7 @@ public class OkeyGame {
 
         if (lastDiscardedTile != null) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
-                if( lastDiscardedTile.equals(currentPlayer.getTiles()[i]) && lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false){
+                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i]) && pickedFromDiscarded == false){
                     getLastDiscardedTile();
                     pickedFromDiscarded = true;
                     System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
