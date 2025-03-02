@@ -5,11 +5,23 @@ public class ApplicationMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         OkeyGame game = new OkeyGame();
+        boolean hasHumanPlayer = true;
 
-        System.out.print("Please enter your name: ");
-        String playerName = sc.next();
+        System.out.print("Which game do you want? (1-Regular 2- All Compter Players): ");
+        String option = sc.nextLine();
+        if(option.equals("2")){
+            hasHumanPlayer = false;
+        }
 
-        game.setPlayerName(0, playerName);
+        if(hasHumanPlayer == true){
+            System.out.print("Please enter your name: ");
+            String playerName = sc.next();
+            game.setPlayerName(0, playerName);
+        }
+        else{
+            game.setPlayerName(0, "Jack"); 
+        }
+
         game.setPlayerName(1, "John");
         game.setPlayerName(2, "Jane");
         game.setPlayerName(3, "Ted");
@@ -32,7 +44,7 @@ public class ApplicationMain {
             int currentPlayer = game.getCurrentPlayerIndex();
             System.out.println(game.getCurrentPlayerName() + "'s turn.");
             
-            if(currentPlayer == 0) {
+            if(currentPlayer == 0 && hasHumanPlayer == true ) {
                 // this is the human player's turn
                 game.displayCurrentPlayersTiles();
                 game.displayDiscardInformation();

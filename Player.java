@@ -45,7 +45,7 @@ public class Player {
      * should also update numberOfTiles accordingly.
      * make sure playerTiles are not more than 15 at any time
      */
-    public void addTile(Tile t) {
+    public void addTilee(Tile t) {
         if(this.numberOfTiles > 14){
             System.out.println("You can not have more than 15 tiles in your hand.");
             return;
@@ -60,6 +60,38 @@ public class Player {
         newTiles[newTiles.length - 1] = t;
         this.playerTiles = newTiles;
         this.numberOfTiles++;
+    }
+
+    public void addTile(Tile tile) {
+        if (this.numberOfTiles > 14) {
+            System.out.println("You can not have more than 15 tiles in your hand.");
+            return;
+        }
+        ArrayList<Tile> tiles = new ArrayList<>();
+
+        for (int i = 0; i < numberOfTiles; i++) {
+            tiles.add(playerTiles[i]);
+        }
+        boolean isadded = false;
+        for (int i = 0; i < tiles.size(); i++) {
+            if(isadded == false){
+                if (tile.getValue() < tiles.get(i).getValue()) {
+                    tiles.add(i, tile);
+                    isadded = true;
+                }
+                else if (tile.getValue() == tiles.get(i).getValue() && tile.colorNameToInt() < tiles.get(i).colorNameToInt()) {
+                    tiles.add(i, tile);
+                    isadded = true;
+                }
+            }
+        }
+        if (isadded == false ) {
+            tiles.add(tile);
+        }
+        for (int i = 0; i < tiles.size(); i++) {
+            playerTiles[i] = tiles.get(i);
+        }
+        numberOfTiles++;
     }
 
     /*
