@@ -147,6 +147,8 @@ public class OkeyGame {
         ArrayList<Integer> count = new ArrayList<>();
         Tile current = null;
         Tile next = null;
+        if(tiles.length!=0){
+            
         for(int i=0; i< tiles.length; i++){
             current = tiles[i];
             count.add(1);
@@ -168,6 +170,7 @@ public class OkeyGame {
                 return;
             }
         }
+    }
     } 
     
 
