@@ -74,6 +74,9 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
+        if(tiles[0] == null){
+            System.out.println(ApplicationMain.discardedTiles.toString());
+        }
         if(tiles[0] != null){
             Tile topTile = tiles[0];
             Player curPlayer = players[currentPlayerIndex];
@@ -138,7 +141,7 @@ public class OkeyGame {
      */
     public void pickTileForComputer() {
         Player currentPlayer = players[currentPlayerIndex];
-        boolean pickedFromDiscarded = false;
+        boolean pickedatile = false;
         ArrayList<Tile> tiles = new ArrayList<>();
 
         for (int i = 0; i < currentPlayer.numberOfTiles; i++) {
@@ -147,14 +150,14 @@ public class OkeyGame {
 
         if (lastDiscardedTile != null) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
-                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i], tiles) && pickedFromDiscarded == false){
+                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i], tiles) && pickedatile == false){
                     getLastDiscardedTile();
-                    pickedFromDiscarded = true;
+                    pickedatile = true;
                     System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
                 }
             }
         }
-        if( pickedFromDiscarded == false ){
+        if( pickedatile == false ){
             getTopTile();
             System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
         }
@@ -183,13 +186,21 @@ public class OkeyGame {
                 if(current.compareTo(next)==0){
                     System.out.println(current.value + current.color);
                     lastDiscardedTile= player.getAndRemoveTile(i);
+                    if(ApplicationMain.discardedTiles.size() < 112 ){
+                        ApplicationMain.discardedTiles.add(lastDiscardedTile);
+                    }
+                    System.out.println(player.playerName + " discarded " + lastDiscardedTile );
                     return;
                 }
             }
         }
         for(int s=0; s<tiles.length; s++){
             if(count.get(s) ==1){
-                player.getAndRemoveTile(s);
+                lastDiscardedTile = player.getAndRemoveTile(s);
+                if(ApplicationMain.discardedTiles.size() < 112 ){
+                    ApplicationMain.discardedTiles.add(lastDiscardedTile);
+                }
+                System.out.println(player.playerName + " discarded " + lastDiscardedTile );
                 return;
             }
         }
