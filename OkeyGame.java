@@ -201,12 +201,13 @@ public class OkeyGame {
             }
         }
         for(int s=0; s<tiles.length; s++){
-            if(count.get(s) ==1){
+            if(count.get(s) == 1){
                 lastDiscardedTile = player.getAndRemoveTile(s);
                 if(ApplicationMain.discardedTiles.size() < 112 ){
                     //ApplicationMain.discardedTiles.add(lastDiscardedTile);
                 }
                 displayDiscardInformation();
+                System.out.println(player.playerName + " discarded " + lastDiscardedTile);
                 return;
             }
         }

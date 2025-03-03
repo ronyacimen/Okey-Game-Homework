@@ -42,6 +42,8 @@ public class ApplicationMain {
         boolean gameContinues = true;
         int playerChoice = -1;
 
+        boolean firstTurnForComputer = true; 
+
         while(gameContinues) {
             if(didEnd){
                 break;
@@ -112,12 +114,48 @@ public class ApplicationMain {
                     System.out.println("Congratulations, you win!");
                 }
             }
+            else if(currentPlayer == 0 && !hasHumanPlayer){
+                game.displayCurrentPlayersTiles();
+                game.displayDiscardInformation();
+
+                if(!firstTurnForComputer){
+                    if(devModeOn) {
+                        game.displayCurrentPlayersTiles();
+                    }               
+
+                    game.pickTileForComputer();
+    
+                    gameContinues = !game.didGameFinish();
+    
+                    if(gameContinues) {
+                        game.discardTileForComputer();
+                        game.passTurnToNextPlayer();
+                    }
+                    else{
+                        System.out.println(game.getCurrentPlayerName() + " wins.");
+                    }
+                }
+                else{
+                    firstTurnForComputer = false;
+                }
+
+                gameContinues = !game.didGameFinish();
+
+                if(gameContinues) {
+                    game.discardTileForComputer();;
+                    game.passTurnToNextPlayer();
+                }
+                else{
+                    // if we finish the hand we win
+                    System.out.println(game.getCurrentPlayerName() + " wins.");
+                }
+
+            }
             else{
                 // this is the computer player's turn
                 if(devModeOn) {
                     game.displayCurrentPlayersTiles();
-                }
-
+                }               
                 // computer picks a tile from tile stack or other player's discard
                 game.pickTileForComputer();
 
