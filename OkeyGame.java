@@ -191,13 +191,30 @@ public class OkeyGame {
                 }
             }
         }
-        for(int s=0; s<tiles.length; s++){
+        for(int s=0; s<tiles.length-1; s++){
             if(count.get(s) == 1){
                 lastDiscardedTile = player.getAndRemoveTile(s);
                 displayDiscardInformation();
                 return;
             }
         }
+
+        for(int s=0; s<tiles.length-1; s++){
+            if(count.get(s) == 2){
+                lastDiscardedTile = player.getAndRemoveTile(s);
+                displayDiscardInformation();
+                return;
+            }
+        }
+
+        for(int s=0; s<tiles.length-1; s++){
+            if(count.get(s) == 3){
+                lastDiscardedTile = player.getAndRemoveTile(s);
+                displayDiscardInformation();
+                return;
+            }
+        }
+        
     } 
     
 
