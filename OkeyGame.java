@@ -6,6 +6,7 @@ public class OkeyGame {
 
     Player[] players;
     Tile[] tiles;
+    int count;
 
     Tile lastDiscardedTile;
 
@@ -16,6 +17,7 @@ public class OkeyGame {
         for(int i = 0; i < players.length; i++){
             players[i] = new Player("");
         }
+        count = 0;
     }
 
     public void createTiles() {
@@ -44,11 +46,13 @@ public class OkeyGame {
             if ( ind == 0 ) {
                 for ( int i = 0; i < 15; i++ ) {
                     players[ind].addTile(tiles[i]);
+                    count++;
                 }
             }
             else {
                 for ( int i = 15 + (ind - 1) * 14; i < 15 + ind * 14; i++ ) {
                     players[ind].addTile(tiles[i]);
+                    count++;
                 }
             }
         }
@@ -75,7 +79,6 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-       
         if(tiles[0] != null){
             Tile topTile = tiles[0];
             Player curPlayer = players[currentPlayerIndex];
@@ -85,7 +88,8 @@ public class OkeyGame {
                 for(int i = 1; i < tiles.length; i++){
                     tiles[i - 1] = tiles[i];
                 }
-                tiles[tiles.length - 1] = null;
+                count++;
+                tiles[tiles.length - 1 - count] = null;
                 return topTile.toString();
             }
         }
@@ -280,5 +284,13 @@ public class OkeyGame {
             System.out.println("DRRAAAWWWWW");
            ApplicationMain.didEnd= true;
         }
+    }
+
+    public int getCount(){
+        return count;
+    }
+
+    public void setCount(int newCount){
+        count = newCount;
     }
 }

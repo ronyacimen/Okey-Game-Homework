@@ -11,7 +11,7 @@ public class ApplicationMain {
         OkeyGame game = new OkeyGame();
         boolean hasHumanPlayer = true;
 
-        System.out.print("Which game do you want? (1-Regular 2- All Compter Players): ");
+        System.out.print("Which game do you want? (1-Regular 2- All Computer Players): ");
         String option = sc.nextLine();
         if(option.equals("2")){
             hasHumanPlayer = false;
