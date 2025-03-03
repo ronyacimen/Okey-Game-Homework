@@ -205,7 +205,7 @@ public class OkeyGame {
             if(count.get(s) ==1){
                 lastDiscardedTile = player.getAndRemoveTile(s);
                 if(ApplicationMain.discardedTiles.size() < 112 ){
-                    ApplicationMain.discardedTiles.add(lastDiscardedTile);
+                    //ApplicationMain.discardedTiles.add(lastDiscardedTile);
                 }
                 System.out.println(player.playerName + " discarded " + lastDiscardedTile );
                 return;
@@ -223,7 +223,7 @@ public class OkeyGame {
         Player player = players[currentPlayerIndex];
         lastDiscardedTile = player.getAndRemoveTile(tileIndex);
         if(lastDiscardedTile != null){
-            ApplicationMain.discardedTiles.add(lastDiscardedTile);
+            //ApplicationMain.discardedTiles.add(lastDiscardedTile);
         }
         
     }
