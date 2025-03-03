@@ -45,9 +45,15 @@ public class ApplicationMain {
         while(gameContinues) {
             game.isTilesEmpty();
             if(didEnd){
+                System.out.println();
+                System.out.println("No more tiles to pick. Game over");
+                for (int i = 0 ; i < game.players.length ; i++) {
+                    game.players[i].displayTiles();
+                }
                 break;
             }
             int currentPlayer = game.getCurrentPlayerIndex();
+            System.out.println();
             System.out.println(game.getCurrentPlayerName() + "'s turn.");
             
             if(currentPlayer == 0 && hasHumanPlayer == true ) {
