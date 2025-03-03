@@ -92,49 +92,32 @@ public class Player {
      */
     public boolean isWinningHand() {
         int chainCount = 0;
-        int j = 0;
-        
-        ArrayList<Integer> chainNumbers = new ArrayList<>(); 
-
-        ArrayList<Tile> newTiles = new ArrayList<>();
-
+        int value = 0;
+        ArrayList<String> colors = new ArrayList<>();
         for(int i = 0; i < playerTiles.length; i++){
-            newTiles.add(playerTiles[i]);
-        }
-
-        while (!newTiles.isEmpty()) { 
-            ArrayList<Tile> chainTiles = new ArrayList<>();
-            Tile firstTile = newTiles.get(j);
-            
-            if(chainNumbers.isEmpty()){
-                while(this.hasSameValue(chainNumbers, firstTile)){
-                    j++;
-                    firstTile = newTiles.get(j);
-                }
+            if(colors.size() == 0){
+                colors.add(playerTiles[i].getColor()  + "");
+                value = playerTiles[i].getValue();
             }
-            
-            
-            chainTiles.add(firstTile);
-    
-            for (int i = 1; i < newTiles.size(); i++) {
-                Tile tile = newTiles.get(i);
-                if (tile != null && firstTile.canFormChainWith(tile, chainTiles)) {
-                    chainTiles.add(tile);
-                    if (chainTiles.size() == 4) {
-                        break; 
+            else{
+                if(playerTiles[i].getValue() == value){
+                    if(!colors.contains(playerTiles[i].getColor()+ "")){
+                        colors.add(playerTiles[i].getColor() + "");
                     }
+                } 
+                else{
+                    if(colors.size() == 4){
+                        chainCount++;
+                    }
+                    for(int idx = colors.size(); idx > 0; idx--){
+                        colors.remove(0);
+                    }
+                    colors.add(playerTiles[i].getColor()  + "");
+                    value = playerTiles[i].getValue();
                 }
             }
-    
-            if (chainTiles.size() == 4) {
-                newTiles.removeAll(chainTiles);
-                chainNumbers.add(chainTiles.get(0).getValue());
-                chainCount++;
-            } else {
-                break; 
-            }
         }
-
+        System.out.println(chainCount);
         return chainCount >= 3;
     }
 
