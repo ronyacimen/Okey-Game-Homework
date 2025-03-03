@@ -142,26 +142,30 @@ public class OkeyGame {
         Player currentPlayer = players[currentPlayerIndex];
         boolean pickedatile = false;
         ArrayList<Tile> tiles = new ArrayList<>();
+        int chainsize = 0;
 
         for (int i = 0; i < currentPlayer.numberOfTiles; i++) {
             tiles.add(currentPlayer.getTiles()[i]);
         }
 
-        if (lastDiscardedTile != null) {
+        if (lastDiscardedTile != null && tiles.contains(lastDiscardedTile) == false ) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
-                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i], tiles) && pickedatile == false){
-                    getLastDiscardedTile();
-                    pickedatile = true;
-                    System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
+                if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i])){
+                    chainsize++;
                 }
+            }
+            if(chainsize > 1 && chainsize < 4){
+                getLastDiscardedTile();
+                pickedatile = true;
+                System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
             }
         }
         if( pickedatile == false ){
             getTopTile();
             System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
             if(didrefill == true){
-                ApplicationMain.discardedTiles.add(0, lastDiscardedTile);
-                ApplicationMain.discardedTiles.remove(112);
+                //ApplicationMain.discardedTiles.add(0, lastDiscardedTile);
+                //ApplicationMain.discardedTiles.remove(112);
             }
         }
     }

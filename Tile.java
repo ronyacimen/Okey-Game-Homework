@@ -74,7 +74,15 @@ public class Tile {
             return true;   
         }
         return false;
-}
+    }
+
+    public boolean equals(Object obj) {
+        Tile tile = (Tile) obj;
+        if(this.getColor() == tile.getColor() && this.getValue() == tile.getValue()){
+            return true;
+        }
+        return false;
+    }
 
 
     public String toString() {
