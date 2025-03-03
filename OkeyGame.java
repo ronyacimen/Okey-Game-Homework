@@ -94,7 +94,7 @@ public class OkeyGame {
             }
         }
         else{
-            System.out.println("Draw");
+            System.out.println("Game has finished! No tiles in the tile stack.");
             ApplicationMain.didEnd = true;
         }
         return null;
@@ -170,8 +170,6 @@ public class OkeyGame {
                 ApplicationMain.didEnd = true;
                 return;
             }
-        
-            System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
         }
         
     }
@@ -222,6 +220,7 @@ public class OkeyGame {
         if(tiles.length!=0){
             int x =findValueInArray(value, tiles);
             lastDiscardedTile= player.getAndRemoveTile(x);
+            displayDiscardInformation();
         }
        
         
@@ -281,8 +280,8 @@ public class OkeyGame {
     public void isTilesEmpty() {
        
         if ( tiles[0] == null ) {
-            System.out.println("Draw!");
-           ApplicationMain.didEnd= true;
+            System.out.println("Game has finished! No tiles in the tile stack.");
+            ApplicationMain.didEnd= true;
         }
     }
 
