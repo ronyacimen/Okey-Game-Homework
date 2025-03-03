@@ -5,7 +5,6 @@ public class OkeyGame {
 
     Player[] players;
     Tile[] tiles;
-    boolean didrefill = false;
 
     Tile lastDiscardedTile;
 
@@ -91,7 +90,6 @@ public class OkeyGame {
         else{
             if(!ApplicationMain.discardedTiles.isEmpty()){
                 System.out.println("All of the tiles that are in the stack are picked. Tiles are being refilled.");
-                didrefill = true;
                 for(int i = 0; i < ApplicationMain.discardedTiles.size(); i++){
                     tiles[i] = ApplicationMain.discardedTiles.get(i);
                 }
@@ -163,10 +161,6 @@ public class OkeyGame {
         if( pickedatile == false ){
             getTopTile();
             System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
-            if(didrefill == true){
-                //ApplicationMain.discardedTiles.add(0, lastDiscardedTile);
-                //ApplicationMain.discardedTiles.remove(112);
-            }
         }
     }
 
@@ -192,10 +186,7 @@ public class OkeyGame {
                 }
                 if(current.compareTo(next)==0){
                     lastDiscardedTile= player.getAndRemoveTile(i);
-                    if(ApplicationMain.discardedTiles.size() < 112 ){
-                        //ApplicationMain.discardedTiles.add(lastDiscardedTile);
-                    }
-                    System.out.println(player.playerName + " discarded " + lastDiscardedTile );
+                    displayDiscardInformation();
                     return;
                 }
             }
@@ -203,11 +194,7 @@ public class OkeyGame {
         for(int s=0; s<tiles.length; s++){
             if(count.get(s) == 1){
                 lastDiscardedTile = player.getAndRemoveTile(s);
-                if(ApplicationMain.discardedTiles.size() < 112 ){
-                    //ApplicationMain.discardedTiles.add(lastDiscardedTile);
-                }
                 displayDiscardInformation();
-                System.out.println(player.playerName + " discarded " + lastDiscardedTile);
                 return;
             }
         }
@@ -222,10 +209,6 @@ public class OkeyGame {
     public void discardTile(int tileIndex) {
         Player player = players[currentPlayerIndex];
         lastDiscardedTile = player.getAndRemoveTile(tileIndex);
-        if(lastDiscardedTile != null){
-            //ApplicationMain.discardedTiles.add(lastDiscardedTile);
-        }
-        
     }
 
     public void displayDiscardInformation() {
