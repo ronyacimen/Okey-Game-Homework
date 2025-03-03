@@ -281,7 +281,7 @@ public class OkeyGame {
     public void isTilesEmpty() {
        
         if ( tiles[0] == null ) {
-            System.out.println("DRRAAAWWWWW");
+            System.out.println("Draw!");
            ApplicationMain.didEnd= true;
         }
     }
