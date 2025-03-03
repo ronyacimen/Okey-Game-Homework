@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class ApplicationMain {
     public static ArrayList<Tile> discardedTiles = new ArrayList<>();
     public static boolean didEnd = false;
+   
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -45,6 +46,7 @@ public class ApplicationMain {
         boolean firstTurnForComputer = true; 
 
         while(gameContinues) {
+            game.isTilesEmpty();
             if(didEnd){
                 break;
             }

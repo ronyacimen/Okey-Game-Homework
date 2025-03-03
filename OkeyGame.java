@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class OkeyGame {
+   
 
     Player[] players;
     Tile[] tiles;
@@ -74,6 +75,7 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
+       
         if(tiles[0] != null){
             Tile topTile = tiles[0];
             Player curPlayer = players[currentPlayerIndex];
@@ -88,17 +90,8 @@ public class OkeyGame {
             }
         }
         else{
-            if(!ApplicationMain.discardedTiles.isEmpty()){
-                System.out.println("All of the tiles that are in the stack are picked. Tiles are being refilled.");
-                for(int i = 0; i < ApplicationMain.discardedTiles.size(); i++){
-                    tiles[i] = ApplicationMain.discardedTiles.get(i);
-                }
-                this.getTopTile();
-            }
-            else{
-                System.out.println("Draw");
-                ApplicationMain.didEnd = true;
-            }
+            System.out.println("Draw");
+            ApplicationMain.didEnd = true;
         }
         return null;
     }
@@ -138,9 +131,9 @@ public class OkeyGame {
      */
     public void pickTileForComputer() {
         Player currentPlayer = players[currentPlayerIndex];
-        boolean pickedatile = false;
+        boolean pickedATile = false;
         ArrayList<Tile> tiles = new ArrayList<>();
-        int chainsize = 0;
+        int chainSize = 0;
 
         for (int i = 0; i < currentPlayer.numberOfTiles; i++) {
             tiles.add(currentPlayer.getTiles()[i]);
@@ -149,19 +142,34 @@ public class OkeyGame {
         if (lastDiscardedTile != null && tiles.contains(lastDiscardedTile) == false ) {
             for( int i = 0 ; i < currentPlayer.numberOfTiles ; i++ ){
                 if(lastDiscardedTile.canFormChainWith(currentPlayer.getTiles()[i])){
-                    chainsize++;
+                    chainSize++;
                 }
             }
-            if(chainsize > 1 && chainsize < 4){
+            if(chainSize > 1 && chainSize < 4){
                 getLastDiscardedTile();
-                pickedatile = true;
+                pickedATile = true;
                 System.out.println(currentPlayer.getName() + " picked a tile from discarded tiles");
             }
         }
-        if( pickedatile == false ){
-            getTopTile();
+
+
+        if (pickedATile == false) {
+            String pickedTile = getTopTile();
+            System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
+            
+            if (ApplicationMain.didEnd) { 
+                return;
+            }
+        
+            if (pickedTile == null) {
+                System.out.println("Game has finished");
+                ApplicationMain.didEnd = true;
+                return;
+            }
+        
             System.out.println(currentPlayer.getName() + " picked a tile from tile stack");
         }
+        
     }
 
     /*
@@ -178,11 +186,9 @@ public class OkeyGame {
         Tile next = null;
         for(int i=0; i< tiles.length - 1; i++){
             current = tiles[i];
-            count.add(1);
             for(int j=i+1; j<tiles.length; j++){
                 next = tiles[j];
                 if(current.getValue() == next.getValue()){
-                    count.set(i,count.get(i)+1);
                 }
                 if(current.compareTo(next)==0){
                     lastDiscardedTile= player.getAndRemoveTile(i);
@@ -191,31 +197,42 @@ public class OkeyGame {
                 }
             }
         }
-        for(int s=0; s<tiles.length-1; s++){
-            if(count.get(s) == 1){
-                lastDiscardedTile = player.getAndRemoveTile(s);
-                displayDiscardInformation();
-                return;
+        int c;
+        for(int i=1;i<8;i++){
+            c =0;
+            for(Tile tile : tiles){
+                if(i == tile.getValue()){
+                    c++;
+                }
             }
+            count.add(c);
         }
-
-        for(int s=0; s<tiles.length-1; s++){
-            if(count.get(s) == 2){
-                lastDiscardedTile = player.getAndRemoveTile(s);
-                displayDiscardInformation();
-                return;
+        int min=10;
+        int value =0;
+        for(int i=0; i<count.size(); i++){
+            if(count.get(i) !=0 && count.get(i)<min){
+                value = i+1;
             }
+            
         }
-
-        for(int s=0; s<tiles.length-1; s++){
-            if(count.get(s) == 3){
-                lastDiscardedTile = player.getAndRemoveTile(s);
-                displayDiscardInformation();
-                return;
-            }
+        if(tiles.length!=0){
+            int x =findValueInArray(value, tiles);
+            lastDiscardedTile= player.getAndRemoveTile(x);
         }
+       
+        
         
     } 
+    
+    public int findValueInArray(int value, Tile[] tiles){
+        
+        for(int i=0; i<tiles.length; i++){
+            if(value == tiles[i].getValue()){
+                return i;
+            }
+        }
+        return 0;
+    }
     
 
     /*
@@ -254,6 +271,14 @@ public class OkeyGame {
         if(index >= 0 && index <= 3) {
             players[index] = new Player(name);
     
+        }
+    }
+
+    public void isTilesEmpty() {
+       
+        if ( tiles[0] == null ) {
+            System.out.println("DRRAAAWWWWW");
+           ApplicationMain.didEnd= true;
         }
     }
 }
